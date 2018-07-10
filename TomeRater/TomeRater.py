@@ -15,12 +15,12 @@ class User(object):
         self.books[book] = rating
 
     def get_average_rating(self):
-        avg = 0
+        total_rating = 0
         num_books = 0
         #total_rating = 0
         for value in self.books.values():
             if value:
-                avg += value
+                total_rating += value
                 num_books += 1
         avg = total_rating / num_books  
         return avg
@@ -52,6 +52,7 @@ class Book(object):
 
     def add_rating(self, rating):
         if rating and rating > 0 and rating <= 4:
+            print(rating)
             self.ratings.append(rating)
         else:
             return "Invalid Rating"
@@ -134,9 +135,9 @@ class TomeRater(object):
             user.read_book(book, rating)
             if book not in self.books:
                 self.books[book] = 0
-            else:
-                self.books[book] += 1  
-                book.add_rating(rating)    
+            self.books[book] += 1  
+            book.add_rating(rating) 
+            print("Adding rating " + str(rating) + " to book " + str(book)) 
         else:
             print("No user with email " + email)
 
